@@ -16,8 +16,9 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 20px;
     padding: 0px 50px;
-    margin: 100px 0px 0px 0px;
+    margin: 100px 0px 50px 0px;
     
 }
 
@@ -27,8 +28,9 @@
     padding: 0;
     height: 100%;
     width: 100%; 
+    /* background: linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 79.17%); */
     background: linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 79.17%);
-    background-color: #04152d;
+    background-color: rgba(0,0,0,0.8); 
     background-blend-mode: darken;
     
 }
@@ -93,12 +95,12 @@
 .play-btn {
     width: 100px;
     height: 100px;
-    background: radial-gradient( rgba(255, 0, 128, 0.8) 60%, rgba(255, 255, 255, 1) 62%);
+    background: linear-gradient( #f89e00 .99%, #da2f68 100%);
     border-radius: 50%;
     position: relative;
     display: block;
     /* margin: 100px auto; */
-    box-shadow: 0px 0px 25px 3px rgba(255, 0, 128, 0.8);
+    box-shadow: 0px 0px 25px 3px #f89e00;
   }
   
   /* triangle */
@@ -124,12 +126,12 @@
   .play-btn:before {
     content: "";
     position: absolute;
-    width: 150%;
-    height: 150%;
-    -webkit-animation-delay: 0s;
-    animation-delay: 0s;
-    -webkit-animation: pulsate1 2s;
-    animation: pulsate1 2s;
+    width: 160%;
+    height: 160%;
+    -webkit-animation-delay: 10s;
+    animation-delay: 10s;
+    -webkit-animation: pulsate1 12s;
+    animation: pulsate1 12s;
     -webkit-animation-direction: forwards;
     animation-direction: forwards;
     -webkit-animation-iteration-count: infinite;
@@ -174,4 +176,12 @@
       box-shadow: none;
   
     }
+  }
+
+  .playerz div {
+    padding: 0;
+  }
+
+  .playerz {
+    padding: 0;
   }
