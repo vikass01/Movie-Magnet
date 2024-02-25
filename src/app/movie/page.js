@@ -15,7 +15,7 @@ const banner1image = "https://www.tallengestore.com/cdn/shop/products/Dora_The_E
 
 function page() {
   const value = 7.9;
-  const [hasWindow, setHasWindow] = useState(false);
+  const [HasWindow, setHasWindow] = useState(false);
   console.log("typeof window" ,typeof window );
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -121,7 +121,7 @@ function page() {
             <div style={{padding:0,display:'flex',flexDirection:'row',justifyContent:'flex-start',alignItems:'center',width:"100%",gap:40}}>
                 <div style={{width:"100%",height:"auto"}}>
                       {
-                        hasWindow && <Swiper
+                        HasWindow && <Swiper
                         slidesPerView={'auto'}
                         spaceBetween={30}
                         // loop={true}
