@@ -13,7 +13,7 @@ import ReactPlayer from 'react-player/lazy'
 
 const banner1image = "https://www.tallengestore.com/cdn/shop/products/Dora_The_Explorer_And_The_Lost_City_Of_Gold_-_Hollywood_English_Movie_Poster_1_3fd98041-803c-4491-9d4a-a0a1d5533aae.jpg?v=1577693642"
 
-function Page() {
+function MoviePage() {
   const value = 7.9;
   const [HasWindow, setHasWindow] = useState(false);
   console.log("typeof window" ,typeof window );
@@ -424,6 +424,6 @@ function Page() {
 }
 
 
-export default Page
+export default MoviePage
 
 
