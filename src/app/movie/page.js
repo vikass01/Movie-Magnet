@@ -30,13 +30,13 @@ function page() {
 
           <div className='bannerImageHeadContainer' >
 
-          <div className='bannerDiv' style={{maxWidth:350}}>
+          <div className='bannerDiv' style={{maxWidth:350,minWidth:300}}>
             <img src={banner1image} />
           </div>
 
           <div className='' style={{flex:1,flexDirection:'column'}}>
               <div>
-                  <p style={{fontSize:34}}>Dune: Part Two (2024)</p>
+                  <p style={{fontSize:34,textAlign:"left"}}>Dune: Part Two (2024)</p>
                   <p style={{fontSize:17,fontStyle:'italic',color:'#ccc',textAlign:'left'}}>Long live the fighters.</p>
                   <div style={{display:'flex', flexDirection:"row",padding:"5px 0px",gap:5}}>
                     <span style={{fontSize:12,backgroundColor:"#da2f68", borderRadius:5, padding:"0px 5px"}}>Science Fiction</span>
@@ -57,16 +57,13 @@ function page() {
                 <p style={{textAlign:'left'}}>After an amazing first date, Bea and Ben’s fiery attraction turns ice cold — until they find themselves unexpectedly reunited at a destination wedding in Australia. So they do what any two mature adults would do: pretend to be a couple.</p>
               </div>
               <div>
-                <div style={{padding:0, display:'flex',flexDirection:'row',gap:20}}>
-                  <p style={{textAlign:'left'}}>Status: Released</p>
-                  <p style={{textAlign:'left'}}>Release Date: Feb 27, 2024</p>
-                  <p style={{textAlign:'left'}}>Runtime: 2h 47m</p>
+                <div style={{padding:0, }}>
+                  <p style={{textAlign:'left'}}>Status: Released Release Date: Feb 27, 2024, Runtime: 2h 47m</p>
                 </div>
                 <br/>
                 <br/>
-                <div style={{padding:0,display:'flex',flexDirection:'row', gap:20}}>
-                  <span>Director: Denis Villeneuve</span>
-                  <span>Writer: Denis Villeneuve, Jon Spaihts</span>
+                <div style={{padding:0,}}>
+                  <p style={{textAlign:'left',padding:0,}}>Director: Denis Villeneuve, Writer: Denis Villeneuve, Jon Spaihts</p>
                 </div>
                 
                 
@@ -78,49 +75,37 @@ function page() {
 
           </div>
 
+        <div>
           {/* Top cast */}
-          <div style={{padding:0,display:'flex',flexDirection:'column',width:"100%"}}>
+          <div style={{padding:0,display:'flex',flexDirection:'column',width:"100%", marginBottom:20}}>
             <div style={{padding:0}}>
               <p style={{padding:0,textAlign:'left'}}>Top Cast</p>
             </div>
             <div style={{padding:0,width:'100%'}}>
               <div style={{display:'flex',flexWrap:'wrap', flexDirection:'row',justifyContent:'flex-start',gap:40,alignItems:'center',width:'100%'}}>
 
-                <div style={{padding:0,width:150,height:200}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:150,height:150,objectFit:'cover',borderRadius:12}}/>
-                  <p>Sydney Sweeney</p>
-                  <p>Bea</p>
+                <div style={{padding:"5px 0px",width:100,height:160}}>
+                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:100,objectFit:'cover',borderRadius:50}}/>
+                  <p style={{fontSize:16}}>Sydney Sweeney</p>
+                  <p style={{fontSize:14}}>Bea</p>
                 </div>
 
-                <div style={{padding:0,width:150,height:200}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:150,height:150,objectFit:'cover',borderRadius:12}}/>
-                  <p>Sydney Sweeney</p>
-                  <p>Bea</p>
+                <div style={{padding:"5px 0px",width:100,height:160}}>
+                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:100,objectFit:'cover',borderRadius:50}}/>
+                  <p style={{fontSize:16}}>Sydney Sweeney</p>
+                  <p style={{fontSize:14}}>Bea</p>
                 </div>
 
-                <div style={{padding:0,width:150,height:200}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:150,height:150,objectFit:'cover',borderRadius:12}}/>
-                  <p>Sydney Sweeney</p>
-                  <p>Bea</p>
+                <div style={{padding:"5px 0px",width:100,height:160}}>
+                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:100,objectFit:'cover',borderRadius:50}}/>
+                  <p style={{fontSize:16}}>Sydney Sweeney</p>
+                  <p style={{fontSize:14}}>Bea</p>
                 </div>
 
-                <div style={{padding:0,width:150,height:200}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:150,height:150,objectFit:'cover',borderRadius:12}}/>
-                  <p>Sydney Sweeney</p>
-                  <p>Bea</p>
-                </div>
+                
 
-                <div style={{padding:0,width:150,height:200}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:150,height:150,objectFit:'cover',borderRadius:12}}/>
-                  <p>Sydney Sweeney</p>
-                  <p>Bea</p>
-                </div>
 
-                <div style={{padding:0,width:150,height:200}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:150,height:150,objectFit:'cover',borderRadius:12}}/>
-                  <p>Sydney Sweeney</p>
-                  <p>Bea</p>
-                </div>
+                
                 
               </div>
               
@@ -429,6 +414,7 @@ function page() {
 
 
           </div>
+        </div>  
 
 
         </div>
