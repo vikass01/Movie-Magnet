@@ -10,29 +10,40 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay,Pagination } from 'swiper/modules';
 import ReactPlayer from 'react-player/lazy'
+import Player from './Player';
 
 const banner1image = "https://www.tallengestore.com/cdn/shop/products/Dora_The_Explorer_And_The_Lost_City_Of_Gold_-_Hollywood_English_Movie_Poster_1_3fd98041-803c-4491-9d4a-a0a1d5533aae.jpg?v=1577693642"
 
 function MoviePage() {
+
+  const [openPlayer, setopenPlayer]=useState(true)
   const value = 7.9;
   const [HasWindow, setHasWindow] = useState(false);
-  console.log("typeof window" ,typeof window );
   useEffect(() => {
     if (typeof window !== "undefined") {
       setHasWindow(true);
     }
   }, []);
 
+
+  const playerCloseFunction =()=>{
+    setopenPlayer(false)
+  }
+
+
+
   return (
-    <div className='moviePageHeadContainer' style={{backgroundImage:`url(${"https://image.tmdb.org/t/p/original/nTPFkLUARmo1bYHfkfdNpRKgEOs.jpg"})`,backgroundSize:'contain'}}>
-      <div className='vghui'>
+    <div className='moviePageHeadContainer' >
+      {openPlayer && <Player url={"https://www.youtube.com/watch?v=LXb3EKWsInQ"} openPlayer={openPlayer} funClose={playerCloseFunction}/>}
+      <div className='vghuii' style={{padding:0,height:"100%",width:"100%"}}>
         <div className='headContainer'>
 
-          <div className='bannerImageHeadContainer' >
-
-          <div className='bannerDiv' style={{maxWidth:350,minWidth:300}}>
-            <img src={banner1image} />
-          </div>
+          <div className='bannerImageHeadContainer' style={{backgroundImage:`url(${"https://image.tmdb.org/t/p/original/nTPFkLUARmo1bYHfkfdNpRKgEOs.jpg"})`,backgroundSize:'cover'}} >
+          <div className='bannerImageJuniourContainer'>
+          <div className='vghui'>
+                  <div className='bannerDiv' style={{maxWidth:350,minWidth:300}}>
+                    <img src={banner1image} />            
+                  </div>
 
           <div className='' style={{flex:1,flexDirection:'column'}}>
               <div>
@@ -45,62 +56,84 @@ function MoviePage() {
               </div>
               <div style={{display:'flex',flexDirection:'row', width:"60%",justifyContent:'space-between',alignItems:'center'}}>
                 
-                <div className='carousalPercentagedivv'>
+                <div className='carousalPercentagedivv' onClick={()=>setopenPlayer(true)}>
                   <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
                 </div>
                 
-                <div ><a className="play-btn" href="#"></a></div>
+                <div onClick={()=>setopenPlayer(true)}><a className="play-btn" ></a></div>
                 <div>Watch Trailer</div>
               </div>
               <div >
                 <p style={{textAlign:'left'}}>Overview</p>
                 <p style={{textAlign:'left'}}>After an amazing first date, Bea and Ben’s fiery attraction turns ice cold — until they find themselves unexpectedly reunited at a destination wedding in Australia. So they do what any two mature adults would do: pretend to be a couple.</p>
+                <p style={{textAlign:'left'}}>Status: Released Release Date: Feb 27, 2024, Runtime: 2h 47m</p>
+                <p style={{textAlign:'left',padding:0,}}>Director: Denis Villeneuve, Writer: Denis Villeneuve, Jon Spaihts</p>
               </div>
-              <div>
-                <div style={{padding:0, }}>
-                  <p style={{textAlign:'left'}}>Status: Released Release Date: Feb 27, 2024, Runtime: 2h 47m</p>
-                </div>
-                <br/>
-                <br/>
-                <div style={{padding:0,}}>
-                  <p style={{textAlign:'left',padding:0,}}>Director: Denis Villeneuve, Writer: Denis Villeneuve, Jon Spaihts</p>
-                </div>
-                
-                
+                  {/* <div>
+                        <div style={{padding:0, }}>
+                          
+                        </div>
+                        <br/>
+                        <br/>
+                        <div style={{padding:0,}}>
+                          
+                        </div>
+                    
+                    
 
-              </div>
+                  </div> */}
 
           </div>
-
-
+          </div>
+          </div>
           </div>
 
         <div>
           {/* Top cast */}
-          <div style={{padding:0,display:'flex',flexDirection:'column',width:"100%", marginBottom:20}}>
+          <div style={{padding:"0px 100px",display:'flex',flexDirection:'column',width:"100%", marginBottom:20}}>
             <div style={{padding:0}}>
               <p style={{padding:0,textAlign:'left'}}>Top Cast</p>
             </div>
             <div style={{padding:0,width:'100%'}}>
-              <div style={{display:'flex',flexWrap:'wrap', flexDirection:'row',justifyContent:'flex-start',gap:40,alignItems:'center',width:'100%'}}>
+              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start',gap:40,alignItems:'center',width:'100%'}}>
 
-                <div style={{padding:"5px 0px",width:100,height:160}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:100,objectFit:'cover',borderRadius:50}}/>
+                <div style={{padding:"5px 0px",width:175,height:262}}>
+                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
                   <p style={{fontSize:16}}>Sydney Sweeney</p>
                   <p style={{fontSize:14}}>Bea</p>
                 </div>
 
-                <div style={{padding:"5px 0px",width:100,height:160}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:100,objectFit:'cover',borderRadius:50}}/>
+                <div style={{padding:"5px 0px",width:175,height:262}}>
+                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
                   <p style={{fontSize:16}}>Sydney Sweeney</p>
                   <p style={{fontSize:14}}>Bea</p>
                 </div>
 
-                <div style={{padding:"5px 0px",width:100,height:160}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:100,objectFit:'cover',borderRadius:50}}/>
+                <div style={{padding:"5px 0px",width:175,height:262}}>
+                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
                   <p style={{fontSize:16}}>Sydney Sweeney</p>
                   <p style={{fontSize:14}}>Bea</p>
                 </div>
+
+                <div style={{padding:"5px 0px",width:175,height:262}}>
+                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
+                  <p style={{fontSize:16}}>Sydney Sweeney</p>
+                  <p style={{fontSize:14}}>Bea</p>
+                </div>
+
+                <div style={{padding:"5px 0px",width:175,height:262}}>
+                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
+                  <p style={{fontSize:16}}>Sydney Sweeney</p>
+                  <p style={{fontSize:14}}>Bea</p>
+                </div>
+
+                <div style={{padding:"5px 0px",width:175,height:262}}>
+                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
+                  <p style={{fontSize:16}}>Sydney Sweeney</p>
+                  <p style={{fontSize:14}}>Bea</p>
+                </div>
+
+                
 
                 
 
@@ -114,12 +147,12 @@ function MoviePage() {
           </div>
 
           {/* Official Videos */}
-          <div style={{padding:0,display:'flex',flexDirection:'column',width:"100%"}}>
+          <div style={{padding:"0px 100px",display:'flex',flexDirection:'column',width:"100%"}}>
             <div style={{padding:0,textAlign:'left'}}>
               <span style={{padding:0,textAlign:'left'}}>Official Videos</span>
             </div>
-            <div style={{padding:0,display:'flex',flexDirection:'row',justifyContent:'flex-start',alignItems:'center',width:"100%",gap:40}}>
-                <div style={{width:"100%",height:"auto"}}>
+            <div style={{padding:0,display:'flex',flexDirection:'row',justifyContent:'flex-start',alignItems:'center',width:"100%",gap:40,height:275}}>
+                <div style={{width:"100%",height:"100%"}}>
                       {
                         HasWindow && <Swiper
                         slidesPerView={'auto'}
@@ -134,12 +167,38 @@ function MoviePage() {
                         }}
                         modules={[Autoplay,Pagination]}
                         className="mySwiper"
-                        style={{marginTop:1}}
+                        style={{marginTop:1,}}
                       >
-                        <SwiperSlide style={{width:300,height:200}} >
+                        <SwiperSlide style={{width:268,height:151}} >
                           <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
+                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
                         </SwiperSlide>
-                        <SwiperSlide style={{width:300,height:200}}>
+
+                        <SwiperSlide style={{width:268,height:151}} >
+                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
+                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
+                        </SwiperSlide>
+
+                        <SwiperSlide style={{width:268,height:151}} >
+                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
+                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
+                        </SwiperSlide>
+
+                        <SwiperSlide style={{width:268,height:151}} >
+                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
+                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
+                        </SwiperSlide>
+
+                        <SwiperSlide style={{width:268,height:151}} >
+                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
+                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
+                        </SwiperSlide>
+
+                        <SwiperSlide style={{width:268,height:151}} >
+                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
+                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
+                        </SwiperSlide>
+                        {/* <SwiperSlide style={{width:300,height:200}}>
                           <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%'/>
                         </SwiperSlide>
                         <SwiperSlide style={{width:300,height:200}}>
@@ -156,7 +215,7 @@ function MoviePage() {
                         </SwiperSlide>
                         <SwiperSlide style={{width:300,height:200}}>
                           <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%'/>
-                        </SwiperSlide>
+                        </SwiperSlide> */}
                         
                           </Swiper>
                         
@@ -183,7 +242,7 @@ function MoviePage() {
           </div>
 
           {/* Similar video */}
-          <div style={{width:"100%",padding:0}}>
+          <div style={{width:"100%",padding:"0px 100px",marginTop:25}}>
           <div style={{padding:0}}>
               <p style={{padding:0,textAlign:'left'}}>Similar Movies</p>
             </div>
