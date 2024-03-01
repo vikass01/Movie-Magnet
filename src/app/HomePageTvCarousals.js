@@ -11,35 +11,30 @@ import 'react-circular-progressbar/dist/styles.css';
 import { Context } from './page';
 
 
-
-function HomePageCarousals(props) {
-  const value = 7.9
-  const {trendm} = useContext(Context);
-  const [dayWeek,setDayWeek]=useState(1)
-
-  const setday=()=>{
-    setDayWeek(1)
-    props.switchDay()
-  }
-
-  const setweek=()=>{
-    setDayWeek(2)
-    props.switchWeek()
-  }
-
- 
+function HomePageTvCarousals(props) {
+    const {trendm, trendTvshows} = useContext(Context);
+    const value = 7.9;
+    const [dayWeek,setDayWeek]=useState(1)
   
+    const setday=()=>{
+      setDayWeek(1)
+      props.switchTvDay()
+    }
   
+    const setweek=()=>{
+      setDayWeek(2)
+      props.switchTvWeek()
+    }
+
+
   return (
-
-    
     <div className='carousalContainer'>
       
         <div className='carousalheading'>
-            <div>Trendings Movies</div>
+            <div>Trendings TV Shows</div>
             <div className="switch" >
                 <div className='box1slider'>
-                    <button onClick={setday} className={`slider1 ${dayWeek === 1 ? "ttcolor ":"textColor"}`}>Day</button>
+                    <button onClick={setday} className={`slider1 ${dayWeek === 1 ? "ttcolor ":"textColor"}`}>Today</button>
                 </div>
                 <div className='box2slider'>
                     <button onClick={setweek} className={`slider2 ${dayWeek === 2 ? "ttcolor ":"textColor"}`} >Week</button>
@@ -63,19 +58,19 @@ function HomePageCarousals(props) {
         className="mySwiper"
         style={{marginTop:1}}
       >
-        {trendm.results?.map((elem,index)=>{
+        {trendTvshows.results?.map((elem,index)=>{
           return <SwiperSlide key={index} >
           <img src={`https://image.tmdb.org/t/p/w500${elem.poster_path}`}/>
           <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${elem.vote_average.toFixed(1)}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${elem.vote_average.toFixed(1) < 7 ? "orange": "green" }`})} />
+          <CircularProgressbar value={value} maxValue={10} text={`${elem.vote_average.toFixed(1)}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${elem.vote_average < 7 ? "orange": "green" }`})} />
           </div>
           <div className='generes'>
             <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
             <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
           </div>
           <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>{elem.original_title}</span>
-            <span className='carousalDescriptionSpan2'>{elem.release_date}</span>
+            <span className='carousalDescriptionSpan1'>{elem.release_date}</span>
+            <span className='carousalDescriptionSpan2'>bbbbbbbb</span>
           </div>
           
           </SwiperSlide>
@@ -88,6 +83,4 @@ function HomePageCarousals(props) {
   )
 }
 
-
-
-export default HomePageCarousals
+export default HomePageTvCarousals
