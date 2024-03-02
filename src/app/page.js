@@ -3,7 +3,6 @@
 import { createContext, useEffect, useState } from "react";
 import HomeBanner from "./HomeBanner";
 import HomePageCarousals from "./HomePageCarousals";
-import {getApiData} from "./ApiConnect"
 import HomePageTvCarousals from "./HomePageTvCarousals";
 import HomePagePeopleCarousals from "./HomePagePeopleCarousals";
 
@@ -39,7 +38,7 @@ export default function Home() {
       const fetchMovieData =async()=>{
             let result = await fetch(trendingSearchKey === "day" ? trendingDayFilterUrl : trendingWeekFilterUrl, options)
             result = await result.json()
-            console.log("resultTv",result);
+            console.log("resultmovie",result);
             settrendMovies(result)
 
       }
@@ -48,7 +47,7 @@ export default function Home() {
       const fetchTvData =async()=>{
             let result = await fetch(trendingTvSearchKey === "day" ? trendingTvDayFilterUrl : trendingTvWeekFilterUrl, options)
             result = await result.json()
-            console.log("result",result);
+            console.log("resulttv",result);
             settrendTv(result)
 
       }

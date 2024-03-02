@@ -10,54 +10,98 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay,Pagination } from 'swiper/modules';
 import ReactPlayer from 'react-player/lazy'
+import { useParams } from 'next/navigation';
 import Player from './Player';
 
 const banner1image = "https://www.tallengestore.com/cdn/shop/products/Dora_The_Explorer_And_The_Lost_City_Of_Gold_-_Hollywood_English_Movie_Poster_1_3fd98041-803c-4491-9d4a-a0a1d5533aae.jpg?v=1577693642"
 
 function MoviePage() {
-
+const parms = useParams()
+console.log("parms",parms);
   const [openPlayer, setopenPlayer]=useState(true)
+  const [moviebackup, setmoviebackup]=useState({})
+  const [Similermoviebackup, setSimilermoviebackup]=useState({})
   const value = 7.9;
-  const [HasWindow, setHasWindow] = useState(false);
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setHasWindow(true);
-    }
-  }, []);
+  
+
+      const playerCloseFunction =()=>{
+        setopenPlayer(false)
+      }
+
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4N2I2NjhjYjY2MTk5ZTQ1MDE1YmRkM2UxOTA0MTM3OSIsInN1YiI6IjY1ZDYwZGI0OTk3NGVlMDE3YjA1Mzg0NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BT0VUGWoSFWyWWtjBP11WLA4TvCHL0sscum0UJBaJE8'
+        }
+        };
 
 
-  const playerCloseFunction =()=>{
-    setopenPlayer(false)
+      const fetchMovie =async()=>{
+            const serc = parms.movie
+            const url = `https://api.themoviedb.org/3/movie/${serc}?language=en-US`
+            let result = await fetch(url, options)
+            result = await result.json()
+            console.log("resultmovie2nd",result);
+            setmoviebackup(result)
+
+      }
+
+      useEffect(()=>{
+        fetchMovie()
+      },[])
+
+
+      const fetchSimiler =async()=>{
+        const serc = parms.movie
+        const url = `https://api.themoviedb.org/3/movie/${serc}/similar?language=en-US&page=1`
+        let result = await fetch(url, options)
+        result = await result.json()
+        console.log("resultsimiler",result);
+        setSimilermoviebackup(result)
+
   }
+
+        useEffect(()=>{
+          fetchSimiler()
+        },[])
+
+      
+
+      
 
 
 
   return (
     <div className='moviePageHeadContainer' >
-      {openPlayer && <Player url={"https://www.youtube.com/watch?v=LXb3EKWsInQ"} openPlayer={openPlayer} funClose={playerCloseFunction}/>}
+      {/* {openPlayer && <Player url={"https://www.youtube.com/watch?v=LXb3EKWsInQ"} openPlayer={openPlayer} funClose={playerCloseFunction}/>} */}
+      {console.log("gotmoviebackup",moviebackup)}
       <div className='vghuii' style={{padding:0,height:"100%",width:"100%"}}>
         <div className='headContainer'>
 
-          <div className='bannerImageHeadContainer' style={{backgroundImage:`url(${"https://image.tmdb.org/t/p/original/nTPFkLUARmo1bYHfkfdNpRKgEOs.jpg"})`,backgroundSize:'cover'}} >
+          <div className='bannerImageHeadContainer' style={{backgroundImage:`url(${"https://image.tmdb.org/t/p/original"+moviebackup.backdrop_path})`,backgroundSize:'cover'}} >
           <div className='bannerImageJuniourContainer'>
           <div className='vghui'>
                   <div className='bannerDiv' style={{maxWidth:350,minWidth:300}}>
-                    <img src={banner1image} />            
+                    <img src={`https://image.tmdb.org/t/p/original${moviebackup?.poster_path}`} style={{borderRadius:12}} />            
                   </div>
 
           <div className='' style={{flex:1,flexDirection:'column'}}>
               <div>
-                  <p style={{fontSize:34,textAlign:"left"}}>Dune: Part Two (2024)</p>
-                  <p style={{fontSize:17,fontStyle:'italic',color:'#ccc',textAlign:'left'}}>Long live the fighters.</p>
+                  <p style={{fontSize:34,textAlign:"left"}}>{moviebackup?.original_title}</p>
+                  <p style={{fontSize:17,fontStyle:'italic',color:'#ccc',textAlign:'left'}}>{moviebackup?.tagline}</p>
                   <div style={{display:'flex', flexDirection:"row",padding:"5px 0px",gap:5}}>
-                    <span style={{fontSize:12,backgroundColor:"#da2f68", borderRadius:5, padding:"0px 5px"}}>Science Fiction</span>
-                    <span style={{fontSize:12,backgroundColor:"#da2f68", borderRadius:5, padding:"0px 5px"}}>Adventure</span>
+                    {moviebackup.genres?.map((elem,index)=>{
+                      return <span key={index} style={{fontSize:12,backgroundColor:"#da2f68", borderRadius:5, padding:"0px 5px"}}>{elem.name}</span>
+                    })}
+                    
+                    
                   </div>
               </div>
               <div style={{display:'flex',flexDirection:'row', width:"60%",justifyContent:'space-between',alignItems:'center'}}>
                 
                 <div className='carousalPercentagedivv' onClick={()=>setopenPlayer(true)}>
-                  <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
+                  <CircularProgressbar value={moviebackup.vote_average} maxValue={10} text={`${moviebackup.vote_average}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: 'linear-gradient( #f89e00 .99%, #da2f68 100%)',pathColor: `${moviebackup.vote_average < 7 ? "orange": "green" }`})} />
                 </div>
                 
                 <div onClick={()=>setopenPlayer(true)}><a className="play-btn" ></a></div>
@@ -65,7 +109,7 @@ function MoviePage() {
               </div>
               <div >
                 <p style={{textAlign:'left'}}>Overview</p>
-                <p style={{textAlign:'left'}}>After an amazing first date, Bea and Ben’s fiery attraction turns ice cold — until they find themselves unexpectedly reunited at a destination wedding in Australia. So they do what any two mature adults would do: pretend to be a couple.</p>
+                <p style={{textAlign:'left'}}>{moviebackup?.overview}</p>
                 <p style={{textAlign:'left'}}>Status: Released Release Date: Feb 27, 2024, Runtime: 2h 47m</p>
                 <p style={{textAlign:'left',padding:0,}}>Director: Denis Villeneuve, Writer: Denis Villeneuve, Jon Spaihts</p>
               </div>
@@ -92,53 +136,18 @@ function MoviePage() {
           {/* Top cast */}
           <div style={{padding:"0px 100px",display:'flex',flexDirection:'column',width:"100%", marginBottom:20}}>
             <div style={{padding:0}}>
-              <p style={{padding:0,textAlign:'left'}}>Top Cast</p>
+              <p style={{padding:0,textAlign:'left'}}>Production Companies</p>
             </div>
             <div style={{padding:0,width:'100%'}}>
-              <div style={{display:'flex', flexDirection:'row',justifyContent:'flex-start',gap:40,alignItems:'center',width:'100%'}}>
+              <div style={{display:'flex', flexWrap:"nowrap", flexDirection:'row',justifyContent:'flex-start',gap:40,alignItems:'center',width:'100%'}}>
 
-                <div style={{padding:"5px 0px",width:175,height:262}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
-                  <p style={{fontSize:16}}>Sydney Sweeney</p>
-                  <p style={{fontSize:14}}>Bea</p>
+                {moviebackup.production_companies?.map((elem,index)=>{
+                  return <div key={index} style={{padding:"5px 0px",width:175}}>
+                  <img src={`https://image.tmdb.org/t/p/original${elem.logo_path}`} style={{width:"100%",height:60,objectFit:'contain',backgroundColor:"#fff",padding:10}}/>
+                  <p style={{fontSize:16}}>{elem.name}</p>
+                  <p style={{fontSize:14}}>{elem.origin_country}</p>
                 </div>
-
-                <div style={{padding:"5px 0px",width:175,height:262}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
-                  <p style={{fontSize:16}}>Sydney Sweeney</p>
-                  <p style={{fontSize:14}}>Bea</p>
-                </div>
-
-                <div style={{padding:"5px 0px",width:175,height:262}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
-                  <p style={{fontSize:16}}>Sydney Sweeney</p>
-                  <p style={{fontSize:14}}>Bea</p>
-                </div>
-
-                <div style={{padding:"5px 0px",width:175,height:262}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
-                  <p style={{fontSize:16}}>Sydney Sweeney</p>
-                  <p style={{fontSize:14}}>Bea</p>
-                </div>
-
-                <div style={{padding:"5px 0px",width:175,height:262}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
-                  <p style={{fontSize:16}}>Sydney Sweeney</p>
-                  <p style={{fontSize:14}}>Bea</p>
-                </div>
-
-                <div style={{padding:"5px 0px",width:175,height:262}}>
-                  <img src='https://image.tmdb.org/t/p/original/yO356gXWSr6fgMw4UH1eYuhdOHI.jpg' style={{width:"100%",height:175,objectFit:'cover',borderRadius:"50%"}}/>
-                  <p style={{fontSize:16}}>Sydney Sweeney</p>
-                  <p style={{fontSize:14}}>Bea</p>
-                </div>
-
-                
-
-                
-
-
-                
+                })} 
                 
               </div>
               
@@ -149,90 +158,22 @@ function MoviePage() {
           {/* Official Videos */}
           <div style={{padding:"0px 100px",display:'flex',flexDirection:'column',width:"100%"}}>
             <div style={{padding:0,textAlign:'left'}}>
-              <span style={{padding:0,textAlign:'left'}}>Official Videos</span>
+              <span style={{padding:0,textAlign:'left'}}>Production Countries</span>
             </div>
-            <div style={{padding:0,display:'flex',flexDirection:'row',justifyContent:'flex-start',alignItems:'center',width:"100%",gap:40,height:275}}>
+            <div style={{padding:0,display:'flex',flexDirection:'row',justifyContent:'flex-start',alignItems:'center',width:"100%",gap:40}}>
                 <div style={{width:"100%",height:"100%"}}>
-                      {
-                        HasWindow && <Swiper
-                        slidesPerView={'auto'}
-                        spaceBetween={30}
-                        // loop={true}
-                        // autoplay={{
-                        //   delay: 3000,
-                        //   disableOnInteraction: false,
-                        // }}
-                        pagination={{
-                          clickable: true,
-                        }}
-                        modules={[Autoplay,Pagination]}
-                        className="mySwiper"
-                        style={{marginTop:1,}}
-                      >
-                        <SwiperSlide style={{width:268,height:151}} >
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
-                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
-                        </SwiperSlide>
-
-                        <SwiperSlide style={{width:268,height:151}} >
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
-                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
-                        </SwiperSlide>
-
-                        <SwiperSlide style={{width:268,height:151}} >
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
-                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
-                        </SwiperSlide>
-
-                        <SwiperSlide style={{width:268,height:151}} >
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
-                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
-                        </SwiperSlide>
-
-                        <SwiperSlide style={{width:268,height:151}} >
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
-                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
-                        </SwiperSlide>
-
-                        <SwiperSlide style={{width:268,height:151}} >
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />
-                          <div className='videoTitle'>Film Independent Presents: An Evening With... The Costumes of Poor Things</div>
-                        </SwiperSlide>
-                        {/* <SwiperSlide style={{width:300,height:200}}>
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%'/>
-                        </SwiperSlide>
-                        <SwiperSlide style={{width:300,height:200}}>
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%'/>
-                        </SwiperSlide>
-                        <SwiperSlide style={{width:300,height:200}}>
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%'/>
-                        </SwiperSlide>
-                        <SwiperSlide style={{width:300,height:200}}>
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%'/>
-                        </SwiperSlide>
-                        <SwiperSlide style={{width:300,height:200}}>
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%'/>
-                        </SwiperSlide>
-                        <SwiperSlide style={{width:300,height:200}}>
-                          <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%'/>
-                        </SwiperSlide> */}
-                        
-                          </Swiper>
+                       
+                            {moviebackup.production_countries?.map((elem,index)=>{
+                              return <div key={index} >
+                              <div  style={{padding:"5px 0px",display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center',gap:5}}>
+                                <p style={{fontSize:16}}>{elem.name}</p>
+                                <p style={{fontSize:14}}>{elem.iso_3166_1}</p>
+                              </div>
+                              </div>
+                            })}
+                            
                         
                         
-                        
-                        
-                        
-                        // <div style={{padding:0,display:'flex',flexDirection:'row', gap:20,width:'100%', height:'auto'}}>
-                        //   <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='300px' height='200px'/>
-
-                        //   <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='300px' height='200px'/>
-
-                        //   <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='300px' height='200px'/>  
-                        
-                        
-                        // </div>
-                        }
                 </div>  
                 
             </div>
@@ -262,9 +203,11 @@ function MoviePage() {
         className="mySwiper"
         style={{marginTop:1}}
       >
-        <SwiperSlide >
+        {Similermoviebackup.results?.map((elem,index)=>{
+          if(elem.poster_path){
+          return <SwiperSlide key={index} >
           
-          <img src={banner1image}/>
+          <img src={`https://image.tmdb.org/t/p/w500${elem.poster_path}`}/>
           <div className='carousalPercentagediv'>
           <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
           </div>
@@ -277,194 +220,11 @@ function MoviePage() {
             <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
           </div>
           
-          </SwiperSlide>
+          </SwiperSlide>}
+        })}
+        
 
-          <SwiperSlide >
           
-          <img src={banner1image}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
-          <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
-            <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
-          </div>
-          
-          </SwiperSlide>
-
-          <SwiperSlide >
-          
-          <img src={banner1image}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
-          <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
-            <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
-          </div>
-          
-          </SwiperSlide>
-
-          <SwiperSlide >
-          
-          <img src={banner1image}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
-          <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
-            <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
-          </div>
-          
-          </SwiperSlide>
-
-          <SwiperSlide >
-          
-          <img src={banner1image}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
-          <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
-            <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
-          </div>
-          
-          </SwiperSlide>
-
-          <SwiperSlide >
-          
-          <img src={banner1image}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
-          <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
-            <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
-          </div>
-          
-          </SwiperSlide>
-
-          <SwiperSlide >
-          
-          <img src={banner1image}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
-          <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
-            <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
-          </div>
-          
-          </SwiperSlide>
-
-          <SwiperSlide >
-          
-          <img src={banner1image}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
-          <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
-            <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
-          </div>
-          
-          </SwiperSlide>
-
-          <SwiperSlide >
-          
-          <img src={banner1image}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
-          <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
-            <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
-          </div>
-          
-          </SwiperSlide>
-
-          <SwiperSlide >
-          
-          <img src={banner1image}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
-          <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
-            <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
-          </div>
-          
-          </SwiperSlide>
-
-          <SwiperSlide >
-          
-          <img src={banner1image}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
-          <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
-            <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
-          </div>
-          
-          </SwiperSlide>
-
-          <SwiperSlide >
-          
-          <img src={banner1image}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
-          <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
-            <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>
-          </div>
-          
-          </SwiperSlide>
         
           
         
@@ -481,6 +241,7 @@ function MoviePage() {
     </div>
   )
 }
+
 
 
 export default MoviePage

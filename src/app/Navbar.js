@@ -6,9 +6,11 @@ import {
   faBars,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from 'next/navigation'
+
 
 function Navbar() {
-
+  const router = useRouter()
   const [searchInput, setSearchInput]= useState(false)
   const [mobisearchInput, setmobiSearchInput]= useState(false)
   const [mobiMenu, setmobiMenu]= useState(false)
@@ -31,7 +33,7 @@ function Navbar() {
   return (
     <>
   <div className="topnav" id="myTopnav" style={{position:'absolute',zIndex:1000}}>
-    <div className='logo'>Movie Magnet</div>
+    <div className='logo'><button onClick={()=>router.push(`/`)}> Movie Magnet </button></div>
     
     <div className='zxcv'>
         <a href="#news" className="active">Movie</a>

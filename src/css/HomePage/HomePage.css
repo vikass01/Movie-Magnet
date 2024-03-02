@@ -15,7 +15,7 @@
 
 
 
-.logo{
+.logo {
     cursor: pointer;
     font-size: 1.5rem;
     font-weight: 900;
@@ -333,8 +333,9 @@
   .swiper-slide {
     width: 236px !important;
     /* height: 324px; */
-    height: 470px;
+    height: 350px !important;
     background-color: transparent;
+    cursor: pointer;
   }
 
 
@@ -553,4 +554,9 @@
     font-size: 12px;
     font-weight: 600;
   }
+}
+
+
+.swiper-pagination-bullets {
+  display: none;
 }

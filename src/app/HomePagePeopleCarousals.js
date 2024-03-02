@@ -69,7 +69,7 @@ function HomePagePeopleCarousals(props) {
             <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
           </div>
           <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>{elem.original_name}</span>
+            <span className='carousalDescriptionSpan1'>{elem.original_name.substring(0,22)}</span>
             <span className='carousalDescriptionSpan2'>{elem.known_for_department}</span>
           </div>
           

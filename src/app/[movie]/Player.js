@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ReactPlayer from 'react-player/lazy'
+import ReactPlayer from 'react-player'
 
 function Player( props) {
 
@@ -18,8 +18,9 @@ function Player( props) {
         
         <div style={{height:400,width:700,position:'fixed',}}>
             <div style={{width:"100%", display:'flex', justifyContent:'flex-end',alignItems:'center'}}><button  onClick={props.funClose}>Close</button></div>
-            {
-                        HasWindow && <ReactPlayer className="playerz" url='https://www.youtube.com/watch?v=LXb3EKWsInQ' width='100%' height='100%' controls />}
+            {/* {
+                        HasWindow && <ReactPlayer className="playerz" url={props.url} width='100%' height='100%' controls />}       */}
+                        
         </div>
       
     </div>
