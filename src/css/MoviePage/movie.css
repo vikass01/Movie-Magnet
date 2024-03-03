@@ -29,11 +29,8 @@
     height: 100%;
     width: 100vw; 
     display: flex;
-    /* background: linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 79.17%); */
-    /* background-color: rgba(0,0,0,0.8); 
-    background-blend-mode: darken; */
-    /* position: absolute;
-    bottom: 0; */
+    flex-direction: row;
+    
     
 }
 
@@ -64,8 +61,81 @@
     border-radius: 50%;
     background: linear-gradient( #f89e00 .99%, #da2f68 100%);
     padding: 1px;
-    margin-right: 70px;
   }
+
+  .playerz div {
+    padding: 0;
+  }
+
+  .playerz {
+    padding: 0;
+  }
+
+  .overviewDiv{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pcompany{
+    /* style={{padding:"0px 100px",display:'flex',flexDirection:'column',width:"100%", marginBottom:20}} */
+    padding: 0px 100px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .pcountries{
+    /* style={{padding:"0px 100px",display:'flex',flexDirection:'column',width:"100%"}} */
+    padding: 0px 100px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .similer{
+    width: 100%;
+    padding: 0px 100px;
+  }
+
+  /* .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    border-radius: 12px;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 90%;
+    border-radius: 12px;
+  }
+  
+  .swiper-slide {
+    width: 236px !important;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+
+  .swiper-pagination-bullet-active {
+    background-color: #000000 !important;
+} */
 
 @media (max-width:720px){
 
@@ -84,8 +154,30 @@
 @media (max-width:460px) {
 
   .swiper-slide {
-    width: 136px;
-    height: 316px;
+    width: 136px !important;
+  }
+
+  .bannerImageJuniourContainer{
+    padding: 70px 0px 0px 0px ;
+  }
+
+  .vghui{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .pcompany{
+    padding: 0px;
+  }
+
+  .pcountries{
+   padding: 0px;
+  }
+
+  .similer{
+    padding: 0px;
   }
 
 }
@@ -209,10 +301,4 @@
     }
   } 
 
-  .playerz div {
-    padding: 0;
-  }
-
-  .playerz {
-    padding: 0;
-  }
+  

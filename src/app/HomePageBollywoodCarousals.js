@@ -14,20 +14,20 @@ import { useRouter } from 'next/navigation'
 
 
 
-function HomePageCarousals(props) {
+function HomePageBollywoodCarousals(props) {
   const router = useRouter()
   const value = 7.9
-  const {trendm} = useContext(Context);
+  const {bollywood} = useContext(Context);
   const [dayWeek,setDayWeek]=useState(1)
 
   const setday=()=>{
     setDayWeek(1)
-    props.switchDay()
+    props.switchBollywoodDay()
   }
 
   const setweek=()=>{
     setDayWeek(2)
-    props.switchWeek()
+    props.switchBollywoodWeek()
   }
 
  
@@ -39,13 +39,13 @@ function HomePageCarousals(props) {
     <div className='carousalContainer'>
       
         <div className='carousalheading'>
-            <div>Trendings Movies</div>
+            <div>Bollywood Movies</div>
             <div className="switch" >
                 <div className='box1slider'>
-                    <button onClick={setday} className={`slider1 ${dayWeek === 1 ? "ttcolor ":"textColor"}`}>Day</button>
+                    <button onClick={setday} className={`slider1 ${dayWeek === 1 ? "ttcolor ":"textColor"}`}>Movie</button>
                 </div>
                 <div className='box2slider'>
-                    <button onClick={setweek} className={`slider2 ${dayWeek === 2 ? "ttcolor ":"textColor"}`} >Week</button>
+                    <button onClick={setweek} className={`slider2 ${dayWeek === 2 ? "ttcolor ":"textColor"}`} >TV</button>
                 </div>
             
             </div>
@@ -66,7 +66,8 @@ function HomePageCarousals(props) {
         className="mySwiper"
         style={{marginTop:1}}
       >
-        {trendm.results?.map((elem,index)=>{
+        {bollywood.results?.map((elem,index)=>{
+            if(elem.poster_path){
           return <SwiperSlide key={index} onClick={() => router.push(`/${elem.id}`)} >
           <img src={`https://image.tmdb.org/t/p/w500${elem.poster_path}`}/>
           <div className='carousalPercentagediv'>
@@ -77,11 +78,11 @@ function HomePageCarousals(props) {
             <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
           </div>
           <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>{elem.original_title.substring(0,22)}</span>
+            <span className='carousalDescriptionSpan1'>{setDayWeek === "day" ? elem.title.substring(0,22):elem.name}</span>
             <span className='carousalDescriptionSpan2'>{elem.release_date}</span>
           </div>
           
-          </SwiperSlide>
+          </SwiperSlide>}
         })}
       </Swiper>
    
@@ -93,4 +94,20 @@ function HomePageCarousals(props) {
 
 
 
-export default HomePageCarousals
+export default HomePageBollywoodCarousals
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

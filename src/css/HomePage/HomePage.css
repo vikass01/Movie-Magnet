@@ -333,7 +333,7 @@
   .swiper-slide {
     width: 236px !important;
     /* height: 324px; */
-    height: 350px !important;
+    /* height: 350px; */
     background-color: transparent;
     cursor: pointer;
   }
@@ -345,19 +345,20 @@
 
   
 
-  @media (max-width:760px) {
+  /* @media (max-width:760px) {
 
-    /* .swiper-slide {
-        width: 85%;
-      } */
+    .carousalContainer{
+      margin-bottom: 50px;
+  
+    }
     
-  }
+  } */
 
   @media (max-width:460px) {
 
       .swiper-slide {
-        width: 136px;
-        height: 316px;
+        width: 136px !important;
+        /* height: 210px !important; */
       }
 
       .carousalPercentagediv{
@@ -382,6 +383,10 @@
        
         flex-direction: column;
         gap: 5px;
+      }
+
+      .swiper-slide img {
+        max-height: 250px;
       }
       
     

@@ -12,12 +12,13 @@ import { Autoplay,Pagination } from 'swiper/modules';
 import ReactPlayer from 'react-player/lazy'
 import { useParams } from 'next/navigation';
 import Player from './Player';
+import { useRouter } from 'next/navigation'
 
 const banner1image = "https://www.tallengestore.com/cdn/shop/products/Dora_The_Explorer_And_The_Lost_City_Of_Gold_-_Hollywood_English_Movie_Poster_1_3fd98041-803c-4491-9d4a-a0a1d5533aae.jpg?v=1577693642"
 
 function MoviePage() {
+const router = useRouter()
 const parms = useParams()
-console.log("parms",parms);
   const [openPlayer, setopenPlayer]=useState(true)
   const [moviebackup, setmoviebackup]=useState({})
   const [Similermoviebackup, setSimilermoviebackup]=useState({})
@@ -42,7 +43,6 @@ console.log("parms",parms);
             const url = `https://api.themoviedb.org/3/movie/${serc}?language=en-US`
             let result = await fetch(url, options)
             result = await result.json()
-            console.log("resultmovie2nd",result);
             setmoviebackup(result)
 
       }
@@ -57,7 +57,6 @@ console.log("parms",parms);
         const url = `https://api.themoviedb.org/3/movie/${serc}/similar?language=en-US&page=1`
         let result = await fetch(url, options)
         result = await result.json()
-        console.log("resultsimiler",result);
         setSimilermoviebackup(result)
 
   }
@@ -74,8 +73,7 @@ console.log("parms",parms);
 
   return (
     <div className='moviePageHeadContainer' >
-      {/* {openPlayer && <Player url={"https://www.youtube.com/watch?v=LXb3EKWsInQ"} openPlayer={openPlayer} funClose={playerCloseFunction}/>} */}
-      {console.log("gotmoviebackup",moviebackup)}
+      
       <div className='vghuii' style={{padding:0,height:"100%",width:"100%"}}>
         <div className='headContainer'>
 
@@ -86,8 +84,8 @@ console.log("parms",parms);
                     <img src={`https://image.tmdb.org/t/p/original${moviebackup?.poster_path}`} style={{borderRadius:12}} />            
                   </div>
 
-          <div className='' style={{flex:1,flexDirection:'column'}}>
-              <div>
+          <div className='overviewDiv'>
+              <div style={{paddingTop:0}}>
                   <p style={{fontSize:34,textAlign:"left"}}>{moviebackup?.original_title}</p>
                   <p style={{fontSize:17,fontStyle:'italic',color:'#ccc',textAlign:'left'}}>{moviebackup?.tagline}</p>
                   <div style={{display:'flex', flexDirection:"row",padding:"5px 0px",gap:5}}>
@@ -101,52 +99,41 @@ console.log("parms",parms);
               <div style={{display:'flex',flexDirection:'row', width:"60%",justifyContent:'space-between',alignItems:'center'}}>
                 
                 <div className='carousalPercentagedivv' onClick={()=>setopenPlayer(true)}>
-                  <CircularProgressbar value={moviebackup.vote_average} maxValue={10} text={`${moviebackup.vote_average}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: 'linear-gradient( #f89e00 .99%, #da2f68 100%)',pathColor: `${moviebackup.vote_average < 7 ? "orange": "green" }`})} />
+                  <CircularProgressbar value={moviebackup.vote_average} maxValue={10} text={`${parseFloat(moviebackup.vote_average).toFixed(1)}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: 'linear-gradient( #f89e00 .99%, #da2f68 100%)',pathColor: `${moviebackup.vote_average < 7 ? "orange": "green" }`})} />
                 </div>
                 
                 <div onClick={()=>setopenPlayer(true)}><a className="play-btn" ></a></div>
                 <div>Watch Trailer</div>
               </div>
               <div >
-                <p style={{textAlign:'left'}}>Overview</p>
-                <p style={{textAlign:'left'}}>{moviebackup?.overview}</p>
-                <p style={{textAlign:'left'}}>Status: Released Release Date: Feb 27, 2024, Runtime: 2h 47m</p>
+                <p style={{textAlign:'left'}}>Overview :</p>
+                <p style={{textAlign:'justify',}}>{moviebackup?.overview}</p>
+                <p style={{textAlign:'left'}}>Status: {moviebackup.status}, Release Date: {moviebackup?.release_date}, Runtime: {parseFloat(moviebackup.runtime/60).toFixed(1)}hrs.</p>
                 <p style={{textAlign:'left',padding:0,}}>Director: Denis Villeneuve, Writer: Denis Villeneuve, Jon Spaihts</p>
               </div>
-                  {/* <div>
-                        <div style={{padding:0, }}>
-                          
-                        </div>
-                        <br/>
-                        <br/>
-                        <div style={{padding:0,}}>
-                          
-                        </div>
-                    
-                    
-
-                  </div> */}
+                
 
           </div>
           </div>
           </div>
           </div>
 
-        <div>
+        <div style={{width:'100%'}}>
           {/* Top cast */}
-          <div style={{padding:"0px 100px",display:'flex',flexDirection:'column',width:"100%", marginBottom:20}}>
+          <div className='pcompany'>
             <div style={{padding:0}}>
-              <p style={{padding:0,textAlign:'left'}}>Production Companies</p>
+              <p style={{padding:0,textAlign:'left'}}>Production Companies :</p>
             </div>
             <div style={{padding:0,width:'100%'}}>
               <div style={{display:'flex', flexWrap:"nowrap", flexDirection:'row',justifyContent:'flex-start',gap:40,alignItems:'center',width:'100%'}}>
 
                 {moviebackup.production_companies?.map((elem,index)=>{
+                  if(elem.logo_path){
                   return <div key={index} style={{padding:"5px 0px",width:175}}>
-                  <img src={`https://image.tmdb.org/t/p/original${elem.logo_path}`} style={{width:"100%",height:60,objectFit:'contain',backgroundColor:"#fff",padding:10}}/>
+                  <img src={`https://image.tmdb.org/t/p/original${elem.logo_path}`} style={{width:"100%",height:60,objectFit:'contain',backgroundColor:"#fff",padding:10,borderRadius:12}}/>
                   <p style={{fontSize:16}}>{elem.name}</p>
-                  <p style={{fontSize:14}}>{elem.origin_country}</p>
-                </div>
+                  {/* <p style={{fontSize:14}}>{elem.origin_country}</p> */}
+                </div>}
                 })} 
                 
               </div>
@@ -156,18 +143,18 @@ console.log("parms",parms);
           </div>
 
           {/* Official Videos */}
-          <div style={{padding:"0px 100px",display:'flex',flexDirection:'column',width:"100%"}}>
+          <div className='pcountries'>
             <div style={{padding:0,textAlign:'left'}}>
-              <span style={{padding:0,textAlign:'left'}}>Production Countries</span>
+              <span style={{padding:0,textAlign:'left'}}>Production Countries :</span>
             </div>
             <div style={{padding:0,display:'flex',flexDirection:'row',justifyContent:'flex-start',alignItems:'center',width:"100%",gap:40}}>
-                <div style={{width:"100%",height:"100%"}}>
+                <div  style={{width:"100%",height:"100%",padding:0}}>
                        
                             {moviebackup.production_countries?.map((elem,index)=>{
-                              return <div key={index} >
-                              <div  style={{padding:"5px 0px",display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center',gap:5}}>
-                                <p style={{fontSize:16}}>{elem.name}</p>
-                                <p style={{fontSize:14}}>{elem.iso_3166_1}</p>
+                              return <div key={index} style={{padding:0}}>
+                              <div  style={{padding:"5px 0px",display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                                <p style={{fontSize:16,marginRight:20}}>{elem.name}</p>
+                                {/* <p style={{fontSize:14}}></p> */}
                               </div>
                               </div>
                             })}
@@ -183,7 +170,7 @@ console.log("parms",parms);
           </div>
 
           {/* Similar video */}
-          <div style={{width:"100%",padding:"0px 100px",marginTop:25}}>
+          <div className='similer'>
           <div style={{padding:0}}>
               <p style={{padding:0,textAlign:'left'}}>Similar Movies</p>
             </div>
@@ -205,7 +192,7 @@ console.log("parms",parms);
       >
         {Similermoviebackup.results?.map((elem,index)=>{
           if(elem.poster_path){
-          return <SwiperSlide key={index} >
+          return <SwiperSlide key={index} onClick={() => router.push(`/${elem.id}`)}>
           
           <img src={`https://image.tmdb.org/t/p/w500${elem.poster_path}`}/>
           <div className='carousalPercentagediv'>

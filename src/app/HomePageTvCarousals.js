@@ -62,7 +62,7 @@ function HomePageTvCarousals(props) {
           return <SwiperSlide key={index} >
           <img src={`https://image.tmdb.org/t/p/w500${elem.poster_path}`}/>
           <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${elem.vote_average.toFixed(1)}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${elem.vote_average < 7 ? "orange": "green" }`})} />
+          <CircularProgressbar value={elem.vote_average.toFixed(1)} maxValue={10} text={`${elem.vote_average.toFixed(1)}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${elem.vote_average < 7 ? "orange": "green" }`})} />
           </div>
           <div className='generes'>
             <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
