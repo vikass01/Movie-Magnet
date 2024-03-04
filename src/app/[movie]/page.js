@@ -1,5 +1,4 @@
 "use client"
-require('dotenv').config()
 import React, { useEffect, useState } from 'react'
 import "../../css/MoviePage/movie.css"
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
