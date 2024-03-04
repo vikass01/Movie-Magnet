@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import "../../css/MoviePage/movie.css"
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import VideoPopup from './VideoPopup';
+import VideoPopup from '../VideoPopup';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
