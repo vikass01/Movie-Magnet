@@ -9,6 +9,7 @@ import HomePageBollywoodCarousals from "./HomePageBollywoodCarousals";
 
 export const Context = createContext()
 
+
 export const options = {
   method: 'GET',
   headers: {
