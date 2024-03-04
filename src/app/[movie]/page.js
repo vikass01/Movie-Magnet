@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import "../../css/MoviePage/movie.css"
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-
+import VideoPopup from './VideoPopup';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -11,7 +11,7 @@ import 'swiper/css/navigation';
 import { Autoplay,Pagination } from 'swiper/modules';
 import ReactPlayer from 'react-player/lazy'
 import { useParams } from 'next/navigation';
-import Player from './Player';
+
 import { useRouter } from 'next/navigation'
 
 const banner1image = "https://www.tallengestore.com/cdn/shop/products/Dora_The_Explorer_And_The_Lost_City_Of_Gold_-_Hollywood_English_Movie_Poster_1_3fd98041-803c-4491-9d4a-a0a1d5533aae.jpg?v=1577693642"
@@ -19,7 +19,7 @@ const banner1image = "https://www.tallengestore.com/cdn/shop/products/Dora_The_E
 function MoviePage() {
 const router = useRouter()
 const parms = useParams()
-  const [openPlayer, setopenPlayer]=useState(true)
+  const [openPlayer, setopenPlayer]=useState(false)
   const [moviebackup, setmoviebackup]=useState({})
   const [val,setval] = useState(0)
   const [Similermoviebackup, setSimilermoviebackup]=useState({})
@@ -34,7 +34,7 @@ const parms = useParams()
         method: 'GET',
         headers: {
           accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4N2I2NjhjYjY2MTk5ZTQ1MDE1YmRkM2UxOTA0MTM3OSIsInN1YiI6IjY1ZDYwZGI0OTk3NGVlMDE3YjA1Mzg0NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BT0VUGWoSFWyWWtjBP11WLA4TvCHL0sscum0UJBaJE8'
+          Authorization: process.env.ACCESS_TOKEN
         }
         };
 
@@ -67,14 +67,16 @@ const parms = useParams()
         },[])
 
       
-
+        const functionCloseVideo =()=>{
+          setopenPlayer(false)
+        }
       
 
 
 
   return (
     <div className='moviePageHeadContainer' >
-      {console.log("value1",val)}
+      {openPlayer && <VideoPopup closeVideo={functionCloseVideo}/> }
       <div className='vghuii' style={{padding:0,height:"100%",width:"100%"}}>
         <div className='headContainer'>
 
@@ -103,7 +105,7 @@ const parms = useParams()
                   <CircularProgressbar value={moviebackup.vote_average} maxValue={10} text={`${parseFloat(moviebackup.vote_average).toFixed(1)}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: 'linear-gradient( #f89e00 .99%, #da2f68 100%)',pathColor: `${moviebackup.vote_average < 7 ? "orange": "green" }`})} />
                 </div>
                 
-                <div onClick={()=>setopenPlayer(true)}><a className="play-btn" ></a></div>
+                <div className='cursor-pointer' onClick={()=>setopenPlayer(true)}><a className="play-btn" style={{zIndex:0}} ></a></div>
                 <div>Watch Trailer</div>
               </div>
               <div >
