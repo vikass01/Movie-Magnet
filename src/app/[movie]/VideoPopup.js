@@ -22,7 +22,7 @@ const VideoPopup = (props) => {
                     width="100%"
                     height="100%"
                     playing={true}
-                    origin="https://www.youtube.com"
+                    origin='https://www.youtube.com'
                 />:null}
             </div>
         </div>
