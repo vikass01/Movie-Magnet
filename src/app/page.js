@@ -36,7 +36,7 @@ export default function Home() {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4N2I2NjhjYjY2MTk5ZTQ1MDE1YmRkM2UxOTA0MTM3OSIsInN1YiI6IjY1ZDYwZGI0OTk3NGVlMDE3YjA1Mzg0NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BT0VUGWoSFWyWWtjBP11WLA4TvCHL0sscum0UJBaJE8'
+      Authorization: process.env.NEXT_PUBLIC_ACCESS_TOKEN
     }
     };
 

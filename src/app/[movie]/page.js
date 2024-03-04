@@ -1,4 +1,5 @@
 "use client"
+require('dotenv').config()
 import React, { useEffect, useState } from 'react'
 import "../../css/MoviePage/movie.css"
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
@@ -34,7 +35,7 @@ const parms = useParams()
         method: 'GET',
         headers: {
           accept: 'application/json',
-          Authorization: process.env.ACCESS_TOKEN
+          Authorization: process.env.NEXT_PUBLIC_ACCESS_TOKEN
         }
         };
 
