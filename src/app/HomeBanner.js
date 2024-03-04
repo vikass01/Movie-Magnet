@@ -16,7 +16,6 @@ function HomeBanner() {
 
   return (
     <div className='bannerHead'>
-    {console.log(value1}
             <div className='bannerImageDiv' style={{backgroundImage: `url(${image1})`}}>
             
                         <div className='welcomeContainerDiv'>
