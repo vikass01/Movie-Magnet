@@ -13,6 +13,7 @@ import { useParams } from 'next/navigation';
 
 import { useRouter } from 'next/navigation'
 import VideoPopup from './VideoPopup';
+import { options } from '../page';
 const banner1image = "https://www.tallengestore.com/cdn/shop/products/Dora_The_Explorer_And_The_Lost_City_Of_Gold_-_Hollywood_English_Movie_Poster_1_3fd98041-803c-4491-9d4a-a0a1d5533aae.jpg?v=1577693642"
 
 
@@ -30,13 +31,13 @@ const parms = useParams()
         setopenPlayer(false)
       }
 
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization: process.env.NEXT_PUBLIC_ACCESS_TOKEN
-        }
-        };
+      // const options = {
+      //   method: 'GET',
+      //   headers: {
+      //     accept: 'application/json',
+      //     Authorization: process.env.NEXT_PUBLIC_ACCESS_TOKEN
+      //   }
+      //   };
 
 
       const fetchMovie =async()=>{

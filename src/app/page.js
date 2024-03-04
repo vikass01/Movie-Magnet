@@ -9,6 +9,14 @@ import HomePageBollywoodCarousals from "./HomePageBollywoodCarousals";
 
 export const Context = createContext()
 
+export const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: process.env.NEXT_PUBLIC_ACCESS_TOKEN
+  }
+  };
+
 
 export default function Home() {
   const trendingBollywoodUrl = "https://api.themoviedb.org/3/discover/movie?api_key=87b668cb66199e45015bdd3e19041379&region=IN&release_date.gte=2017-08-01&with_release_type=3|2&with_original_language=hi"
@@ -32,13 +40,7 @@ export default function Home() {
   const [trendingPeopleSearchKey, settrendingPeopleSearchKey]=useState("day")
   const [trendingBollywoodSearchKey, settrendingBollywoodSearchKey]=useState("day")
 
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: process.env.NEXT_PUBLIC_ACCESS_TOKEN
-    }
-    };
+    
 
 
     const fetchBollywoodMovieData =async()=>{
