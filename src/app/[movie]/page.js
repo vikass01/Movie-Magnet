@@ -21,6 +21,7 @@ const router = useRouter()
 const parms = useParams()
   const [openPlayer, setopenPlayer]=useState(true)
   const [moviebackup, setmoviebackup]=useState({})
+  const [val,setval] = useState(0)
   const [Similermoviebackup, setSimilermoviebackup]=useState({})
   const value = 7.9;
   
@@ -73,7 +74,7 @@ const parms = useParams()
 
   return (
     <div className='moviePageHeadContainer' >
-      
+      {console.log("value1",val)}
       <div className='vghuii' style={{padding:0,height:"100%",width:"100%"}}>
         <div className='headContainer'>
 
@@ -173,7 +174,7 @@ const parms = useParams()
           <div className='similer'>
           <div style={{padding:0}}>
               <p style={{padding:0,textAlign:'left'}}>Similar Movies</p>
-            </div>
+          </div>
             
           <Swiper
         slidesPerView={'auto'}
@@ -193,15 +194,16 @@ const parms = useParams()
         {Similermoviebackup.results?.map((elem,index)=>{
           if(elem.poster_path){
           return <SwiperSlide key={index} onClick={() => router.push(`/${elem.id}`)}>
-          
-          <img src={`https://image.tmdb.org/t/p/w500${elem.poster_path}`}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
-          </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
+              <img src={`https://image.tmdb.org/t/p/w500${elem.poster_path}`}/>
+              <div className='carougene'>
+                <div className='carousalPercentagediv'>
+                <CircularProgressbar value={value} maxValue={10} text={`${value}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${value < 7 ? "orange": "green" }`})} />
+                </div>
+                <div className='generes'>
+                  <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
+                  <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
+                </div>
+              </div>
           <div className='carousalDescription'>
             <span className='carousalDescriptionSpan1'>The Zone of Interest</span>
             <span className='carousalDescriptionSpan2'>Dec 15, 2023</span>

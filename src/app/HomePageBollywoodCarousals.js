@@ -39,8 +39,8 @@ function HomePageBollywoodCarousals(props) {
     <div className='carousalContainer'>
       
         <div className='carousalheading'>
-            <div>Bollywood Movies</div>
-            <div className="switch" >
+            <div className='carusalHeaderText'>Bollywood Movies</div>
+            <div className="switch" style={{backgroundColor:"#ccc"}}>
                 <div className='box1slider'>
                     <button onClick={setday} className={`slider1 ${dayWeek === 1 ? "ttcolor ":"textColor"}`}>Movie</button>
                 </div>
@@ -70,15 +70,18 @@ function HomePageBollywoodCarousals(props) {
             if(elem.poster_path){
           return <SwiperSlide key={index} onClick={() => router.push(`/${elem.id}`)} >
           <img src={`https://image.tmdb.org/t/p/w500${elem.poster_path}`}/>
-          <div className='carousalPercentagediv'>
-          <CircularProgressbar value={elem.vote_average.toFixed(1)} maxValue={10} text={`${elem.vote_average.toFixed(1)}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: '#fff',pathColor: `${elem.vote_average.toFixed(1) < 7 ? "orange": "green" }`})} />
+          <div className='carougene'>
+              <div className='carousalPercentagediv'>
+                <CircularProgressbar value={elem.vote_average.toFixed(1)} maxValue={10} text={`${elem.vote_average.toFixed(1)}`} styles={buildStyles({textSize: '45px',textColor: '#000',trailColor:'#fff',pathColor: `${elem.vote_average.toFixed(1) < 7 ? "orange": "green" }`})} />
+              </div>
+              <div className='generes'>
+                <span className='genespan' style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10}}>Drama</span>
+                <span className='genespan' style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10}}>History</span>
+              </div>
           </div>
-          <div className='generes'>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>Drama</span>
-            <span style={{backgroundColor:'#da2f68',padding:"0px 5px",borderRadius:10,fontSize:12}}>History</span>
-          </div>
+          
           <div className='carousalDescription'>
-            <span className='carousalDescriptionSpan1'>{setDayWeek === "day" ? elem.title.substring(0,22):elem.name}</span>
+            <span className='carousalDescriptionSpan1'>{elem.original_title}</span>
             <span className='carousalDescriptionSpan2'>{elem.release_date}</span>
           </div>
           

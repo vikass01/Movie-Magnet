@@ -44,7 +44,7 @@ export default function Home() {
     const fetchBollywoodMovieData =async()=>{
       let result = await fetch(trendingBollywoodSearchKey === "day" ? trendingBollywoodUrl : trendingBollywoodTvUrl, options)
       result = await result.json()
-      console.log("resultBollywoodmovie",result);
+      // console.log("resultBollywoodmovie",result);
       settrendBollywood(result)
 
       }
@@ -70,7 +70,16 @@ export default function Home() {
         result = await result.json()
         settrendPeople(result)
 
-  }
+      }
+
+
+      // const fetchBackgroundImages =async()=>{
+      //   let result = await fetch(trendingBollywoodSearchKey === "day" ? trendingBollywoodUrl : trendingBollywoodTvUrl, options)
+      //   result = await result.json()
+      //   console.log("resultBollywoodmovie",result);
+      //   settrendBollywood(result)
+  
+      // }
       
 
   useEffect(()=>{

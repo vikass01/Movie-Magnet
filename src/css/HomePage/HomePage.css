@@ -194,6 +194,10 @@
 
   
   @media (max-width:460px){
+
+    .welcomeText{
+      font-size: 35px;
+    }
     
     .welcomeParagraphText{
       font-size: 14px;
@@ -210,7 +214,7 @@
     }
 
     .bannerImageDiv{
-      height: 350px;
+      height: 280px;
       
     }
 
@@ -257,20 +261,31 @@
 
   .carousalPercentagediv{
     /* style={{position:'absolute',bottom:-22,left:10,height:50,width:50,borderRadius:50,backgroundColor:"#fff",padding:1,marginBottom:10}} */
-    position: absolute;
-    bottom: 50px;
-    left: 10px;
-    height: 50px;
+    /* position: absolute; */
+    /* bottom: 50px;
+    left: 10px; */
+    height: fit-content !important;
     width: 50px;
     border-radius: 50%;
     background-color: #fff;
     padding: 1px;
   }
 
-  .generes{
+  .carougene{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
     position: absolute;
+    bottom: 44px;
+    padding: 0;
+    width: 100%;
+  }
+
+  .generes{
+    /* position: absolute;
     bottom: 55px;
-    right: 0px;
+    right: 0px; */
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -283,15 +298,17 @@
     flex-direction: column;
     justify-content: flex-start;
     padding: 0;
+    margin-top: 10px;
   }
 
   .carousalDescriptionSpan1{
     /* style={{color:"#fff",fontSize:17,fontWeight:600, textAlign:'left',marginTop:15}} */
     color: #fff;
-    font-size: 17px;
+    font-size: 12px;
     font-weight: 600;
     text-align: left;
     margin-top: 18px;
+    white-space: nowrap;
   }
 
   .carousalDescriptionSpan2{
@@ -305,18 +322,18 @@
   .swiper {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
   .swiper-slide {
     text-align: center;
     font-size: 18px;
     background: #fff;
-  
     /* Center slide text vertically */
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+    
     padding: 0px;
     border-radius: 12px;
   }
@@ -331,7 +348,7 @@
   }
   
   .swiper-slide {
-    width: 236px !important;
+    width: 165px !important;
     /* height: 324px; */
     /* height: 350px; */
     background-color: transparent;
@@ -344,34 +361,90 @@
 }
 
   
+.genespan{
+  font-size: 10px;
+}
 
-  /* @media (max-width:760px) {
+.switch {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 204px;
+  height: 34px;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 0px;
 
-    .carousalContainer{
-      margin-bottom: 50px;
-  
-    }
-    
-  } */
+}
+
+.box1slider{
+  height: 100%;
+  width: 100%;
+  padding: 2px;
+}
+
+.slider1 {
+  height: 100%;
+  width: 100%;
+  -webkit-transition: .4s;
+  transition: .4s;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px 0px 0px 20px;
+  font-weight: 600;
+}
+
+.ttcolor{
+  background: linear-gradient(98.37deg, #f89e00 .99%, #da2f68 100%);
+}
+.textColor{
+  color: #000000;
+}
+
+.box2slider{
+  height: 100%;
+  width: 100%;
+  padding: 2px;
+}
+
+.slider2 {
+  height: 100%;
+  width: 100%;
+  -webkit-transition: .4s;
+  transition: .4s;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px 20px 20px 0px;
+  font-weight: 600;
+}
+
+
 
   @media (max-width:460px) {
 
       .swiper-slide {
         width: 136px !important;
-        /* height: 210px !important; */
+        height: fit-content !important;
       }
 
       .carousalPercentagediv{
         
         height: 40px;
+        min-height: 30px !important;
         width: 40px;
-        bottom: 60px;
+        min-width: 30px !important;
+        /* bottom: 60px; */
         
       }
 
       .carousalDescriptionSpan1{
        
-        font-size: 14px;
+        font-size: 12px;
       }
 
       .carousalDescriptionSpan2{
@@ -381,97 +454,49 @@
 
       .generes{
        
-        flex-direction: column;
+        /* flex-direction: column; */
         gap: 5px;
+        padding: 0px;
       }
 
       .swiper-slide img {
         max-height: 250px;
       }
+
+      .carusalHeaderText{
+        padding: 0;
+        font-weight: 700;
+      }
+
+      .switch {
+      
+        width: 100px;
+        height: 25px;
+    
+      }
+
+      .slider1{
+        font-size: 12px;
+      }
+
+      .slider2{
+        font-size: 12px;
+      }
+
+      .searchInput{
+        font-size: 12px;
+      }
+
+      .welcomeDivSearchButton{
+        font-size: 14px;
+      }
+
+      .welcomeParagraphText{
+        font-size: 12px;
+      }
       
     
   }
-  /* .swiper-slide:nth-child(2n) {
-    width: 60%;
-  }
-  
-  .swiper-slide:nth-child(3n) {
-    width: 40%;
-  } */
-
-  /* swithc button css */
-
-  .switch {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 204px;
-    height: 34px;
-    background-color: #fff;
-    border-radius: 20px;
-    padding: 0px;
-
-  }
-
-  .box1slider{
-    height: 34px;
-    width: 100%;
-    padding: 2px;
-  }
-
-  .slider1 {
-    height: 30px;
-    width: 100%;
-    -webkit-transition: .4s;
-    transition: .4s;
-    padding: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px 0px 0px 20px;
-    font-weight: 600;
-  }
-
-  .ttcolor{
-    background: linear-gradient(98.37deg, #f89e00 .99%, #da2f68 100%);
-  }
-  .textColor{
-    color: #000000;
-  }
-
-  .box2slider{
-    height: 34px;
-    width: 100%;
-    padding: 2px;
-  }
-
-  .slider2 {
-    height: 30px;
-    width: 100%;
-    -webkit-transition: .4s;
-    transition: .4s;
-    padding: 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0px 20px 20px 0px;
-    font-weight: 600;
-  }
-
-  @media (max-width:460px){
-    
-    .switch {
-      
-      width: 150px;
-      height: 25px;
-  
-    }
-
-    
-  }
-  
-
 
   /* //////////////Footer-page //////////////////////// */
 
