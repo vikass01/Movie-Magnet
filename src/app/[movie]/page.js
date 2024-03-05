@@ -22,7 +22,7 @@ const router = useRouter()
 const parms = useParams()
   const [openPlayer, setopenPlayer]=useState(false)
   const [moviebackup, setmoviebackup]=useState({})
-  const [val,setval] = useState(0)
+  const [videoData,setVideoData] = useState({})
   const [Similermoviebackup, setSimilermoviebackup]=useState({})
   const value = 7.9;
   
@@ -71,13 +71,22 @@ const parms = useParams()
         const functionCloseVideo =()=>{
           setopenPlayer(false)
         }
+
+        const playVideo =async()=>{
+          const serc = parms.movie
+          const url = `https://api.themoviedb.org/3/movie/${serc}/videos?language=en-US`
+          let result = await fetch(url, options)
+          result = await result.json()
+          setVideoData(result)
+          setopenPlayer(true)
+        }
       
 
 
 
   return (
     <div className='moviePageHeadContainer' >
-       {openPlayer && <VideoPopup closeVideo={functionCloseVideo}/> }
+       {openPlayer && <VideoPopup closeVideo={functionCloseVideo} videoData={videoData}/> }
       <div className='vghuii' style={{padding:0,height:"100%",width:"100%"}}>
         <div className='headContainer'>
 
@@ -102,11 +111,11 @@ const parms = useParams()
               </div>
               <div style={{display:'flex',flexDirection:'row', width:"60%",justifyContent:'space-between',alignItems:'center'}}>
                 
-                <div className='carousalPercentagedivv' onClick={()=>setopenPlayer(true)}>
+                <div className='carousalPercentagedivv' >
                   <CircularProgressbar value={moviebackup.vote_average} maxValue={10} text={`${parseFloat(moviebackup.vote_average).toFixed(1)}`} styles={buildStyles({textSize: '35px',textColor: '#000',trailColor: 'linear-gradient( #f89e00 .99%, #da2f68 100%)',pathColor: `${moviebackup.vote_average < 7 ? "orange": "green" }`})} />
                 </div>
                 
-                <div className='cursor-pointer' onClick={()=>setopenPlayer(true)}><a className="play-btn" style={{zIndex:0}} ></a></div>
+                <div className='cursor-pointer' onClick={playVideo}><a className="play-btn" style={{zIndex:0}} ></a></div>
                 <div>Watch Trailer</div>
               </div>
               <div >
