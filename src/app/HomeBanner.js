@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from 'react'
 const image1 = "/bPe6svQylMx7zS4RyuMJbOL46ao.jpg"
 import "../css/HomePage/HomePage.css"
 import { Context } from './page'
+import { useDispatch } from 'react-redux'
 
 
 
@@ -75,12 +76,15 @@ function HomeBanner() {
 
 const BannerBox =()=>{
 
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState("abc");
+    const dispatch = useDispatch()
 
   const searchQueryHandler = (event) => {
-    if (event.key === "Enter" && query.length > 0) {
-        navigate(`/search/${query}`);
-    }
+    // if (event.key === "Enter" && query.length > 0) {
+    //     navigate(`/search/${query}`);
+    // }
+    console.log("query",query);
+
     };
     return (
         <>
@@ -95,8 +99,8 @@ const BannerBox =()=>{
                                     <input
                                         type="search"
                                         placeholder="Search movie or tv show...."
-                                        onChange={(e) => setQuery(e.target.value)}
-                                        onKeyUp={searchQueryHandler}
+                                        onChange={(ev) => setQuery(ev.target.value)}
+                                        onClick={searchQueryHandler}
                                         className='searchInput' 
                                     />
                                     <button className='welcomeDivSearchButton' onClick={searchQueryHandler} >Search</button>

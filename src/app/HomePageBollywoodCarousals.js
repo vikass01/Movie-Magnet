@@ -10,11 +10,14 @@ import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Context } from './page';
 import { useRouter } from 'next/navigation'
+import { useSelector } from 'react-redux';
 
 
 
 
 function HomePageBollywoodCarousals(props) {
+  const apiData = useSelector((data)=>data.bollywood)
+
   const router = useRouter()
   const value = 7.9
   const {bollywood} = useContext(Context);
@@ -37,7 +40,7 @@ function HomePageBollywoodCarousals(props) {
 
     
     <div className='carousalContainer'>
-      
+      {console.log("apiData",apiData)}
         <div className='carousalheading'>
             <div className='carusalHeaderText'>Bollywood Movies</div>
             <div className="switch" style={{backgroundColor:"#ccc"}}>

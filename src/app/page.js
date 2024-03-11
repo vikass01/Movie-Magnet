@@ -6,6 +6,8 @@ import HomePageCarousals from "./HomePageCarousals";
 import HomePageTvCarousals from "./HomePageTvCarousals";
 import HomePagePeopleCarousals from "./HomePagePeopleCarousals";
 import HomePageBollywoodCarousals from "./HomePageBollywoodCarousals";
+import { useDispatch } from "react-redux";
+import { getBollywood } from "@/Redux/slice";
 
 export const Context = createContext()
 
@@ -20,6 +22,8 @@ export const options = {
 
 
 export default function Home() {
+
+  const dispatch = useDispatch()
   const trendingBollywoodUrl = "https://api.themoviedb.org/3/discover/movie?api_key=87b668cb66199e45015bdd3e19041379&region=IN&release_date.gte=2017-08-01&with_release_type=3|2&with_original_language=hi"
   const trendingBollywoodTvUrl = "https://api.themoviedb.org/3/discover/tv?api_key=87b668cb66199e45015bdd3e19041379&region=IN&release_date.gte=2017-08-01&with_release_type=3|2&with_original_language=hi"
 
@@ -49,6 +53,8 @@ export default function Home() {
       result = await result.json()
       // console.log("resultBollywoodmovie",result);
       settrendBollywood(result)
+      dispatch(getBollywood(result))
+      
 
       }
 

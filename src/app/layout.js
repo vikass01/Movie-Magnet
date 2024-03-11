@@ -4,6 +4,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import StoreProvider from "../Redux/StoreProvider";
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,9 +19,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <StoreProvider >
         <Navbar/>
         {children}
         <Footer/>
+        </StoreProvider>
         </body>
     </html>
   );
